@@ -1,0 +1,15 @@
+parameters:
+    parallel:
+        jobSize: 20
+        maximumNumberOfProcesses: 16
+        minimumNumberOfJobsPerProcess: 2
+        processTimeout: 300.0
+    excludes_analyse:
+        - vendor/
+    ignoreErrors:
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::setProperty\(\)#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::getProperty\(\)#'
+    bootstrapFiles:
+        - src/Client.php
+    level: 1
+    reportUnmatchedIgnoredErrors: false

@@ -1,0 +1,17 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Feba\\DataAPI\\": "src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.87",
+        "squizlabs/php_codesniffer": "^3.6",
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^1.0.0",
+        "clue/phar-composer": "^1.2"
+    }
+}
