@@ -5,18 +5,8 @@ stages:
  - code_quality
  - test
  
-testing:
-  stage: test
-  dependencies:
-    - composer
-  before_script:
-    - cd src
-  script:
-    - /usr/local/bin/composer test
 composer:
   stage: preparation
-  before_script:
-    - cd src
   script:
     - /usr/local/bin/composer install --no-plugins --no-scripts
 
@@ -34,3 +24,11 @@ static_analysis:
   script:
     - /usr/local/bin/composer code-analysis
 
+testing:
+  stage: test
+  dependencies:
+    - composer
+  before_script:
+    - cd src
+  script:
+    - /usr/local/bin/composer test
