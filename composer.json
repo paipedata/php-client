@@ -7,6 +7,24 @@
     "require": {
         "guzzlehttp/guzzle": "^6.5"
     },
+    "scripts": {
+        "check": [
+            "vendor/bin/phpstan analyze . -c phpstan.neon --level=1 --memory-limit=-1 --no-progress -vvv ",
+            "vendor/bin/phpcs --encoding=UTF-8 --error-severity=1 --warning-severity=8 --report=full --report=json --standard=.phpcs.xml ."
+        ],
+        "code-style": [
+            "vendor/bin/phpstan analyze . -c phpstan.neon --level=1 --memory-limit=-1 --no-progress -vvv "
+        ],
+        "code-analysis": [
+            "vendor/bin/phpcs --encoding=UTF-8 --error-severity=1 --warning-severity=8 --report=full --report=json --standard=.phpcs.xml ."
+        ],
+        "test": [
+            "vendor/bin/codecept run"
+        ],
+        "fix-cs": [
+            "vendor/bin/phpcbf ."
+        ]
+    },
     "require-dev": {
         "phpstan/phpstan": "^0.12.87",
         "squizlabs/php_codesniffer": "^3.6",

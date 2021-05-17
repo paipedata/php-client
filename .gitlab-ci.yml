@@ -1,0 +1,39 @@
+image: git.febacapital.com:5050/feba/images/php71:latest
+
+job:
+  cache: {}
+
+stages:
+ - preparation
+ - code_quality
+ - test
+ 
+testing:
+  stage: test
+  dependencies:
+    - composer
+  before_script:
+    - cd src
+  script:
+    - /usr/local/bin/composer test
+composer:
+  stage: preparation
+  before_script:
+    - cd src
+  script:
+    - /usr/local/bin/composer install --no-plugins --no-scripts
+
+code_style:
+  stage: code_quality
+  dependencies:
+    - composer
+  script:
+    - /usr/local/bin/composer code-style
+
+static_analysis:
+  stage: code_quality
+  dependencies:
+    - composer
+  script:
+    - /usr/local/bin/composer code-analysis
+
