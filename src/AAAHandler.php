@@ -60,10 +60,9 @@ class AAAHandler
         $services = [];
 
         foreach ($jsonBody['services'] as $serviceEntry) {
-
             $actions = [];
 
-            foreach ($serviceEntry['authorized_actions']  as $actionEntry) {
+            foreach ($serviceEntry['authorized_actions'] as $actionEntry) {
                 $actions[] = '/' . $actionEntry;
             }
 

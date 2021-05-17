@@ -10,7 +10,7 @@ use GuzzleHttp;
 class Service
 {
     /**
-     * It's an optmist offset to help delay on token expiration time validation.     
+     * It's an optmist offset to help delay on token expiration time validation.
      */
     const TOKEN_EXPIRATION_SALT = 60;
 
@@ -38,7 +38,7 @@ class Service
 
     /**
      * Checks if the token is valid.
-     * 
+     *
      * @return bool
      */
     public function isTokenValid()
@@ -52,27 +52,22 @@ class Service
      * Prefer to use services from Feba\DataAPI\Client which handles expiration tokens accordantly.
      *
      * Example to perform GET with query string:
-     * 
      *     $client = new Feba\DataAPI\Client('https://aaa.febacapital.com', 'app key', 'app secret');
-     *     $response = $client->getService('postal-code')->request('GET' '/lookup', [ 
+     *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
-     * 
      * To post to data service as json:
-     * 
      *     $service = $client->getService('postal-code')
-     *     $resp = $service->request('POST' '/search', [ 
+     *     $resp = $service->request('POST' '/search', [
      *         'json' => ['foo' => 'data']
      *     ]);
-     * 
      * Injecting a custom header:
-     * 
      *     $service = $client->getService('postal-code')
-     *     $resp = $service->request('POST' '/search', [ 
+     *     $resp = $service->request('POST' '/search', [
      *         'headers' => ['X-My-Header' => 'nice header'],
      *         'json' => ['foo' => 'data']
      *     ]);
-     * 
+     *
      * @param string              $method  HTTP method
      * @param string              $action  Action name/path.
      * @param array               $options Request options to apply. See \Psr\Http\Message\MessageInterface.
