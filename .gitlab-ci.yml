@@ -1,35 +1,23 @@
 image: git.febacapital.com:5050/feba/images/php71:latest
 
 stages:
- - preparation
  - code_quality
  - test
  
-composer:
-  stage: preparation
-  script:
-    - /usr/local/bin/composer install --no-plugins --no-scripts
-
 code_style:
   stage: code_quality
-  dependencies:
-    - composer
   script:
-    - pwd
-    - ls -lh
-    - find .
+    - /usr/local/bin/composer install
     - /usr/local/bin/composer code-style
 
 static_analysis:
   stage: code_quality
-  dependencies:
-    - composer
   script:
+    - /usr/local/bin/composer install
     - /usr/local/bin/composer code-analysis
 
 testing:
   stage: test
-  dependencies:
-    - composer
   script:
+    - /usr/local/bin/composer install
     - /usr/local/bin/composer test
