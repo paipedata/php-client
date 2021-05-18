@@ -1,4 +1,4 @@
-namespace: Feba\DataAPI
+namespace: feba\dataapi
 suites:
     unit:
         path: .

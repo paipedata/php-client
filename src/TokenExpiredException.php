@@ -1,6 +1,6 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace feba\dataapi;
 
 /**
  * Exception when the token has expired.

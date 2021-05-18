@@ -1,6 +1,6 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace feba\dataapi;
 
 /**
  * Feba Data API Client.
@@ -15,7 +15,7 @@ class Client
      *
      * The following is an example of a client instance and a service request:
      *
-     *     $client = new Feba\DataAPI\Client('https://aaa.febacapital.com', 'app key', 'app secret');
+     *     $client = new feba\dataapi\Client('https://aaa.febacapital.com', 'app key', 'app secret');
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);

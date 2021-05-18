@@ -1,6 +1,6 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace feba\dataapi;
 
 use GuzzleHttp;
 
@@ -49,10 +49,10 @@ class Service
     /**
      * Performs the request with JWT token as Bearer Authorization header.
      * It has similar syntax of GuzzleHttp\Client, request method.
-     * Prefer to use services from Feba\DataAPI\Client which handles expiration tokens accordantly.
+     * Prefer to use services from feba\dataapi\Client which handles expiration tokens accordantly.
      *
      * Example to perform GET with query string:
-     *     $client = new Feba\DataAPI\Client('https://aaa.febacapital.com', 'app key', 'app secret');
+     *     $client = new feba\dataapi\Client('https://aaa.febacapital.com', 'app key', 'app secret');
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);

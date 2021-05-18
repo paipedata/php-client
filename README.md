@@ -23,7 +23,7 @@ In order to get the client done, above parameter should be shared to the applica
 Example to perform GET with query string:
 
 ```php
-$client = new Feba\DataAPI\Client('https://aaa.febacapital.com', 'app-key', 'app-secret');
+$client = new feba\dataapi\Client('https://aaa.febacapital.com', 'app-key', 'app-secret');
 
 $response = $client->getService('cep')->request('GET' '/lookup', [ 
     'query' => ['keyword' => 'av paulista']

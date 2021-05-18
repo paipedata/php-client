@@ -1,10 +1,9 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace feba\dataapi;
 
 use Codeception\Stub\Expected;
 use Codeception\Util\Debug;
-use Feba\DataAPI\AAAHandler;
 
 class AAAHandlerTest extends \Codeception\Test\Unit
 {

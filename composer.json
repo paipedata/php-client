@@ -1,7 +1,16 @@
-{
+{   "name": "feba/dataapi",
+    "description": "Feba DataAPI to access Feba corporate services.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Shairon Toledo",
+            "email": "shairon.toledo@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",    
     "autoload": {
         "psr-4": {
-            "Feba\\DataAPI\\": "src/"
+            "feba\\dataapi\\": "src/"
         }
     },
     "require": {
