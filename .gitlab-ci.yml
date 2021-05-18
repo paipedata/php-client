@@ -14,8 +14,6 @@ code_style:
   stage: code_quality
   dependencies:
     - composer
-  before_script:
-    - cd src
   script:
     - /usr/local/bin/composer code-style
 
@@ -23,8 +21,6 @@ static_analysis:
   stage: code_quality
   dependencies:
     - composer
-  before_script:
-    - cd src
   script:
     - /usr/local/bin/composer code-analysis
 
@@ -32,7 +28,5 @@ testing:
   stage: test
   dependencies:
     - composer
-  before_script:
-    - cd src
   script:
     - /usr/local/bin/composer test
