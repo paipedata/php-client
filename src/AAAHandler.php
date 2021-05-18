@@ -16,7 +16,7 @@ class AAAHandler
     private $aaa;
     const DEFAULT_AAA_URL = 'https://feba.dataapi.com';
 
-    /** 
+    /**
      * AAA Handler configuration settings include the following options:
      * - aaaUrl: Applications Authorization App (AAA) url to get the authorized services from.
      * - appKey: Current application key to identify the caller.

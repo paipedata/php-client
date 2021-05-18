@@ -54,10 +54,9 @@ class Service
      *
      * Example to perform GET with query string:
      *     $client = new feba\dataapi\Client([
-     *       'aaaUrl' => 'https://aaa.febacapital.com', 
-     *       'appKey' => 'app key', 
+     *       'aaaUrl' => 'https://aaa.febacapital.com',
+     *       'appKey' => 'app key',
      *       'appSecret' => 'app secret']);
-     * 
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
