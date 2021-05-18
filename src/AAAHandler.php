@@ -14,16 +14,24 @@ class AAAHandler
     private $appKey;
     private $appSecret;
     private $aaa;
-    /**
-     * @param string $aaaUrl Applications Authorization App (AAA) url to get the authorized services from.
-     * @param string $appKey Current application key to identify the caller.
-     * @param string $appSecret Application secret of appKey.
+    const DEFAULT_AAA_URL = 'https://feba.dataapi.com';
+
+    /** 
+     * AAA Handler configuration settings include the following options:
+     * - aaaUrl: Applications Authorization App (AAA) url to get the authorized services from.
+     * - appKey: Current application key to identify the caller.
+     * - appSecret: Application secret of appKey.
      */
-    public function __construct($aaaUrl, $appKey, $appSecret)
+    public function __construct(array $config = [])
     {
-        $this->aaaUrl = $aaaUrl;
-        $this->appKey = $appKey;
-        $this->appSecret = $appSecret;
+        if (!isset($this->config['aaaUrl'])) {
+            $this->aaaUrl = self::DEFAULT_AAA_URL;
+        } else {
+            $this->aaaUrl = $this->config['aaaUrl'];
+        }
+
+        $this->appKey = $config['appKey'];
+        $this->appSecret = $config['appSecret'];
         $this->aaa = new GuzzleHttp\Client(['base_uri' => $this->aaaUrl]);
     }
 

@@ -15,18 +15,23 @@ class Client
      *
      * The following is an example of a client instance and a service request:
      *
-     *     $client = new feba\dataapi\Client('https://aaa.febacapital.com', 'app key', 'app secret');
+     *     $client = new feba\dataapi\Client([
+     *       'aaaUrl' => 'https://aaa.febacapital.com', 
+     *       'appKey' => 'app key', 
+     *       'appSecret' => 'app secret']);
+     * 
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
-     *
-     * @param string $aaaUrl Applications Authorization App (AAA) url to get the authorized services from.
-     * @param string $appKey Current application key to identify the caller.
-     * @param string $appSecret Application secret of appKey.
+     * Client configuration settings include the following options:
+     * 
+     * - aaaUrl: Applications Authorization App (AAA) url to get the authorized services from.
+     * - appKey: Current application key to identify the caller.
+     * - appSecret: Application secret of appKey.
      */
-    public function __construct($aaaUrl, $apiKey, $apiSecret)
+    public function __construct(array $config = [])
     {
-        $this->handler = new AAAHandler($aaaUrl, $apiKey, $apiSecret);
+        $this->handler = new AAAHandler($config);
     }
 
     /**
@@ -63,13 +68,10 @@ class Client
         [$serviceEntries, $jwtToken, $expiration] = $this->handler->getAuthorization();
 
         foreach ($serviceEntries as $serviceEntry) {
-            [
-                'name' => $serviceName,
-                'baseEndpoint' => $baseEndpoint,
-                'actions' => $actions,
-            ] = $serviceEntry;
-
-            $this->cachedServices[$serviceName] = new Service($serviceName, $baseEndpoint, $actions, $jwtToken, $expiration);
+            $serviceName = $serviceEntry['name'];
+            $serviceEntry['jwtToken'] = $jwtToken;
+            $serviceEntry['expiration'] = $expiration;
+            $this->cachedServices[$serviceName] = new Service($serviceEntry);
         }
     }
 }

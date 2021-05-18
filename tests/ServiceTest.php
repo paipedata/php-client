@@ -10,20 +10,38 @@ class ServiceTest extends \Codeception\Test\Unit
 
     public function testValidExpiration()
     {
-        $service = new Service('yahoo-finance', 'https://finance.yahoo.com', ['/news'], 'jwt-token', time() + 1000);
+        $service = new Service([
+            'name' => 'yahoo-finance',
+            'baseEndpoint' => 'https://finance.yahoo.com',
+            'actions' => ['/news'],
+            'jwtToken' => 'jwt-token',
+            'expiration' => time() + 1000
+        ]);
         $this->assertTrue($service->isTokenValid());
     }
 
     public function testInvalidExpiration()
     {
-        $service = new Service('yahoo-finance', 'https://finance.yahoo.com', ['/news'], 'jwt-token', time() - 2000);
+        $service = new Service([
+            'name' => 'yahoo-finance',
+            'baseEndpoint' => 'https://finance.yahoo.com',
+            'actions' => ['/news'],
+            'jwtToken' => 'jwt-token',
+            'expiration' => time() - 2000
+        ]);
 
         $this->assertFalse($service->isTokenValid());
     }
 
     public function testRequestWithExpiredToken()
     {
-        $service = new Service('yahoo-finance', 'https://finance.yahoo.com', ['/news'], 'jwt-token', time() - 2000);
+        $service = new Service([
+            'name' => 'yahoo-finance',
+            'baseEndpoint' => 'https://finance.yahoo.com',
+            'actions' => ['/news'],
+            'jwtToken' => 'jwt-token',
+            'expiration' => time() - 2000
+        ]);
 
         $this->expectException(TokenExpiredException::class);
         $service->request('POST', '/news');
@@ -31,7 +49,13 @@ class ServiceTest extends \Codeception\Test\Unit
 
     public function testRequestWithUnsupportedAction()
     {
-        $service = new Service('yahoo-finance', 'https://finance.yahoo.com', ['/news'], 'jwt-token', time() + 2000);
+        $service = new Service([
+            'name' => 'yahoo-finance',
+            'baseEndpoint' => 'https://finance.yahoo.com',
+            'actions' => ['/news'],
+            'jwtToken' => 'jwt-token',
+            'expiration' => time() + 2000
+        ]);
 
         $this->expectException(UnsupportedServiceActionException::class);
         $this->expectExceptionMessage('Action /newsx is not supported by the service yahoo-finance');

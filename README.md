@@ -12,7 +12,7 @@ composer install feba-data-api-client.phar
 ## Usage
 
 Firstly get instantiate a client then get a service from it. 
-In this example, we're going to use:
+In this example, we're going to use the config:
 
 - `aaaUrl` the AAA endpoint as `https://aaa.febacapital.com` 
 - `appKey` the app key as `app-key` 
@@ -23,7 +23,12 @@ In order to get the client done, above parameter should be shared to the applica
 Example to perform GET with query string:
 
 ```php
-$client = new feba\dataapi\Client('https://aaa.febacapital.com', 'app-key', 'app-secret');
+$client = new feba\dataapi\Client([
+  'aaaUrl' => 'https://aaa.febacapital.com',
+  'appKey' => 'app-key',
+  'appSecret' => 'app-secret'
+];
+
 
 $response = $client->getService('cep')->request('GET' '/lookup', [ 
     'query' => ['keyword' => 'av paulista']

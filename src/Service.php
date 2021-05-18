@@ -21,19 +21,20 @@ class Service
     protected $expiration;
 
     /**
-     * @param string   $name          Service name.
-     * @param string   $baseEndpoint  Base service endpoint.
-     * @param array    $actions       The list(string) of supported actions.
-     * @param string   $jwtToken      JWT Token provided by AAA.
-     * @param string   $expiration    When the jwtToken will expire.
+     * Service configuration settings include the following options:
+     * - name:          Service name.
+     * - baseEndpoint:  Base service endpoint.
+     * - actions:       The list(string) of supported actions.
+     * - jwtToken:      JWT Token provided by AAA.
+     * - expiration:    When the jwtToken will expire.
      */
-    public function __construct($name, $baseEndpoint, $actions, $jwtToken, $expiration)
+    public function __construct($config)
     {
-        $this->name = $name;
-        $this->baseEndpoint = $baseEndpoint;
-        $this->actions = $actions;
-        $this->jwtToken = $jwtToken;
-        $this->expiration = $expiration;
+        $this->name = $config['name'];
+        $this->baseEndpoint = $config['baseEndpoint'];
+        $this->actions = $config['actions'];
+        $this->jwtToken = $config['jwtToken'];
+        $this->expiration = $config['expiration'];
     }
 
     /**
@@ -52,7 +53,11 @@ class Service
      * Prefer to use services from feba\dataapi\Client which handles expiration tokens accordantly.
      *
      * Example to perform GET with query string:
-     *     $client = new feba\dataapi\Client('https://aaa.febacapital.com', 'app key', 'app secret');
+     *     $client = new feba\dataapi\Client([
+     *       'aaaUrl' => 'https://aaa.febacapital.com', 
+     *       'appKey' => 'app key', 
+     *       'appSecret' => 'app secret']);
+     * 
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
