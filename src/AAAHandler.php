@@ -24,10 +24,10 @@ class AAAHandler
      */
     public function __construct(array $config = [])
     {
-        if (!isset($this->config['aaaUrl'])) {
+        if (!isset($config['aaaUrl'])) {
             $this->aaaUrl = self::DEFAULT_AAA_URL;
         } else {
-            $this->aaaUrl = $this->config['aaaUrl'];
+            $this->aaaUrl = $config['aaaUrl'];
         }
 
         $this->appKey = $config['appKey'];
