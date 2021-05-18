@@ -15,6 +15,9 @@ code_style:
   dependencies:
     - composer
   script:
+    - pwd
+    - ls -lh
+    - find .
     - /usr/local/bin/composer code-style
 
 static_analysis:
