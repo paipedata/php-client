@@ -1,5 +1,7 @@
 image: git.febacapital.com:5050/feba/images/php71:latest
-
+job:
+  cache: {}
+  
 stages:
  - preparation
  - code_quality
