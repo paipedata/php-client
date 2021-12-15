@@ -1,6 +1,6 @@
 <?php
 
-namespace feba\dataapi;
+namespace paipe\phpclient;
 
 use Codeception\Stub\Expected;
 use Codeception\Util\Debug;

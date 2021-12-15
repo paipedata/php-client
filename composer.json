@@ -1,5 +1,5 @@
-{   "name": "feba/dataapi",
-    "description": "Feba DataAPI to access Feba corporate services.",
+{   "name": "paipe/phpclient",
+    "description": "Paipe data",
     "type": "library",
     "authors": [
         {
@@ -10,7 +10,7 @@
     "minimum-stability": "dev",    
     "autoload": {
         "psr-4": {
-            "feba\\dataapi\\": "src/"
+            "paipe\\phpclient\\": "src/"
         }
     },
     "require": {
@@ -35,7 +35,7 @@
         ]
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.87",
+        "phpstan/phpstan": "^0.12.32",
         "squizlabs/php_codesniffer": "^3.6",
         "codeception/codeception": "^4.1",
         "codeception/module-asserts": "^1.0.0",

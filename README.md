@@ -1,20 +1,19 @@
-# Feba Data API Client for PHP
+# Paipe API Client for PHP
 
-DataAPI client provides an easy interface for Feba data services, it handles authentication from [AAA](https://git.febacapital.com/feba/data-api/aaa/-/tree/master/src), pre-authorize services and validate authorized actions.
+Paipe PHP client provides an easy interface for Feba data services, it handles authentication from Paipe Auth, pre-authorize services and validate authorized actions.
 
 
 ## Installation
 
-TODO: Check how to distribute it.
 ```
-composer install feba-data-api-client.phar
+composer require paipe/phpclient
 ```
 ## Usage
 
 Firstly get instantiate a client then get a service from it. 
 In this example, we're going to use the config:
 
-- `aaaUrl` the AAA endpoint as `https://aaa.febacapital.com` 
+- `aaaUrl` the Auth endpoint as `https://auth.paipe.com.br` 
 - `appKey` the app key as `app-key` 
 - `appSecret` the app secret as `app-secret` 
 
@@ -23,8 +22,8 @@ In order to get the client done, above parameter should be shared to the applica
 Example to perform GET with query string:
 
 ```php
-$client = new feba\dataapi\Client([
-  'aaaUrl' => 'https://aaa.febacapital.com',
+$client = new paipe\phpclient\Client([
+  'aaaUrl' => 'https://auth.paipe.com.br',
   'appKey' => 'app-key',
   'appSecret' => 'app-secret'
 ];
@@ -57,4 +56,4 @@ $resp = $service->request('POST' '/search', [
 ```
 
 ###
-© [Feba Capital](https://www.febacapital.com/)
+© [Paipe](https://www.paipe.com.br/)

@@ -1,6 +1,6 @@
 <?php
 
-namespace feba\dataapi;
+namespace paipe\phpclient;
 
 class UnsupportedServiceActionException extends \Exception
 {

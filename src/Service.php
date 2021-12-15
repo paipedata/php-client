@@ -1,6 +1,6 @@
 <?php
 
-namespace feba\dataapi;
+namespace paipe\phpclient;
 
 use GuzzleHttp;
 
@@ -50,13 +50,14 @@ class Service
     /**
      * Performs the request with JWT token as Bearer Authorization header.
      * It has similar syntax of GuzzleHttp\Client, request method.
-     * Prefer to use services from feba\dataapi\Client which handles expiration tokens accordantly.
+     * Prefer to use services from paipe\phpclient\Client which handles expiration tokens accordantly.
      *
      * Example to perform GET with query string:
-     *     $client = new feba\dataapi\Client([
-     *       'aaaUrl' => 'https://aaa.febacapital.com',
-     *       'appKey' => 'app key',
+     *     $client = new paipe\phpclient\Client([
+     *       'aaaUrl' => 'https://auth.paipe.com.br', 
+     *       'appKey' => 'app key', 
      *       'appSecret' => 'app secret']);
+     * 
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
@@ -87,9 +88,9 @@ class Service
             throw new TokenExpiredException('Token is not longer valid');
         }
 
-        if (!in_array($action, $this->actions)) {
-            throw new UnsupportedServiceActionException("Action $action is not supported by the service " . $this->name);
-        }
+//         if (!in_array($action, $this->actions)) {
+//             throw new UnsupportedServiceActionException("Action $action is not supported by the service " . $this->name);
+//         }
 
         if (!isset($options['headers'])) {
             $options['headers'] = [];
@@ -97,8 +98,13 @@ class Service
 
         $options['headers']['Authorization'] = 'Bearer ' . $this->jwtToken;
 
-        $serviceClient = new GuzzleHttp\Client(['base_uri' => $this->baseEndpoint]);
+        $serviceClient = new GuzzleHttp\Client([
+//             'base_uri' => $this->baseEndpoint,
+//             'debug' => true,
+        ]);
+        
+        $url = $this->baseEndpoint . '/' . $action;
 
-        return $serviceClient->request($method, $action, $options);
+        return $serviceClient->request($method, $url, $options);
     }
 }
