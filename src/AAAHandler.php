@@ -83,4 +83,17 @@ class AAAHandler
 
         return [$services, $jsonBody['jwtToken'], $jsonBody['exp']];
     }
+    
+    /**
+     * @return \Psr\Http\Message\StreamInterface
+     */
+    public function getProfileBody()
+    {
+        [,$token,] = $this->getAuthorization();
+        return $this->aaa->request('GET', '/profile', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+            ]
+        ])->getBody();
+    }
 }

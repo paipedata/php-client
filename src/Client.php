@@ -74,4 +74,12 @@ class Client
             $this->cachedServices[$serviceName] = new Service($serviceEntry);
         }
     }
+    
+    /**
+     * @return array
+     */
+    public function getProfile()
+    {
+        return json_decode($this->handler->getProfileBody()->getContents(), true);
+    }
 }
