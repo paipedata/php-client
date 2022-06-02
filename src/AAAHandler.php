@@ -16,7 +16,7 @@ class AAAHandler
     private $aaa;
     const DEFAULT_AAA_URL = 'https://auth.paipe.com.br';
 
-    /** 
+    /**
      * AAA Handler configuration settings include the following options:
      * - aaaUrl: Applications Authorization App (AAA) url to get the authorized services from.
      * - appKey: Current application key to identify the caller.
@@ -25,7 +25,7 @@ class AAAHandler
     public function __construct(array $config = [])
     {
         if (isset($config['aaaUrl'])) {
-            $this->aaaUrl = $this->config['aaaUrl'];
+            $this->aaaUrl = $config['aaaUrl'];
         } else {
             $this->aaaUrl = self::DEFAULT_AAA_URL;
         }

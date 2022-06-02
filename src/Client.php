@@ -16,15 +16,15 @@ class Client
      * The following is an example of a client instance and a service request:
      *
      *     $client = new paipe\phpclient\Client([
-     *       'aaaUrl' => 'https://api.paipe.com.br', 
-     *       'appKey' => 'app key', 
+     *       'aaaUrl' => 'https://api.paipe.com.br',
+     *       'appKey' => 'app key',
      *       'appSecret' => 'app secret']);
-     * 
+     *
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
      * Client configuration settings include the following options:
-     * 
+     *
      * - aaaUrl: Applications Authorization App (AAA) url to get the authorized services from.
      * - appKey: Current application key to identify the caller.
      * - appSecret: Application secret of appKey.
