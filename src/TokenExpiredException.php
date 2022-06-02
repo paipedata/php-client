@@ -1,6 +1,6 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace paipe\phpclient;
 
 /**
  * Exception when the token has expired.

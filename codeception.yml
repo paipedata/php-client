@@ -1,4 +1,4 @@
-namespace: Feba\DataAPI
+namespace: paipe\phpclient
 suites:
     unit:
         path: .

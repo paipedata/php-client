@@ -1,6 +1,6 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace paipe\phpclient;
 
 use GuzzleHttp;
 
@@ -21,19 +21,20 @@ class Service
     protected $expiration;
 
     /**
-     * @param string   $name          Service name.
-     * @param string   $baseEndpoint  Base service endpoint.
-     * @param array    $actions       The list(string) of supported actions.
-     * @param string   $jwtToken      JWT Token provided by AAA.
-     * @param string   $expiration    When the jwtToken will expire.
+     * Service configuration settings include the following options:
+     * - name:          Service name.
+     * - baseEndpoint:  Base service endpoint.
+     * - actions:       The list(string) of supported actions.
+     * - jwtToken:      JWT Token provided by AAA.
+     * - expiration:    When the jwtToken will expire.
      */
-    public function __construct($name, $baseEndpoint, $actions, $jwtToken, $expiration)
+    public function __construct($config)
     {
-        $this->name = $name;
-        $this->baseEndpoint = $baseEndpoint;
-        $this->actions = $actions;
-        $this->jwtToken = $jwtToken;
-        $this->expiration = $expiration;
+        $this->name = $config['name'];
+        $this->baseEndpoint = $config['baseEndpoint'];
+        $this->actions = $config['actions'];
+        $this->jwtToken = $config['jwtToken'];
+        $this->expiration = $config['expiration'];
     }
 
     /**
@@ -49,10 +50,14 @@ class Service
     /**
      * Performs the request with JWT token as Bearer Authorization header.
      * It has similar syntax of GuzzleHttp\Client, request method.
-     * Prefer to use services from Feba\DataAPI\Client which handles expiration tokens accordantly.
+     * Prefer to use services from paipe\phpclient\Client which handles expiration tokens accordantly.
      *
      * Example to perform GET with query string:
-     *     $client = new Feba\DataAPI\Client('https://aaa.febacapital.com', 'app key', 'app secret');
+     *     $client = new paipe\phpclient\Client([
+     *       'aaaUrl' => 'https://auth.paipe.com.br',
+     *       'appKey' => 'app key',
+     *       'appSecret' => 'app secret']);
+     *
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
@@ -83,9 +88,9 @@ class Service
             throw new TokenExpiredException('Token is not longer valid');
         }
 
-        if (!in_array($action, $this->actions)) {
-            throw new UnsupportedServiceActionException("Action $action is not supported by the service " . $this->name);
-        }
+//         if (!in_array($action, $this->actions)) {
+//             throw new UnsupportedServiceActionException("Action $action is not supported by the service " . $this->name);
+//         }
 
         if (!isset($options['headers'])) {
             $options['headers'] = [];
@@ -93,8 +98,13 @@ class Service
 
         $options['headers']['Authorization'] = 'Bearer ' . $this->jwtToken;
 
-        $serviceClient = new GuzzleHttp\Client(['base_uri' => $this->baseEndpoint]);
+        $serviceClient = new GuzzleHttp\Client([
+//             'base_uri' => $this->baseEndpoint,
+//             'debug' => true,
+        ]);
+        
+        $url = $this->baseEndpoint . '/' . $action;
 
-        return $serviceClient->request($method, $action, $options);
+        return $serviceClient->request($method, $url, $options);
     }
 }

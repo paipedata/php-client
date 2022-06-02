@@ -6,10 +6,4 @@ parameters:
         processTimeout: 300.0
     excludes_analyse:
         - vendor/
-    ignoreErrors:
-        - '#Call to an undefined method [a-zA-Z0-9\\_]+::setProperty\(\)#'
-        - '#Call to an undefined method [a-zA-Z0-9\\_]+::getProperty\(\)#'
-    bootstrapFiles:
-        - src/Client.php
-    level: 1
-    reportUnmatchedIgnoredErrors: false
+    level: 3

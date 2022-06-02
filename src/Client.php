@@ -1,6 +1,6 @@
 <?php
 
-namespace Feba\DataAPI;
+namespace paipe\phpclient;
 
 /**
  * Feba Data API Client.
@@ -15,18 +15,23 @@ class Client
      *
      * The following is an example of a client instance and a service request:
      *
-     *     $client = new Feba\DataAPI\Client('https://aaa.febacapital.com', 'app key', 'app secret');
+     *     $client = new paipe\phpclient\Client([
+     *       'aaaUrl' => 'https://api.paipe.com.br',
+     *       'appKey' => 'app key',
+     *       'appSecret' => 'app secret']);
+     *
      *     $response = $client->getService('postal-code')->request('GET' '/lookup', [
      *         'query' => ['keyword' => 'av paulista']
      *     ]);
+     * Client configuration settings include the following options:
      *
-     * @param string $aaaUrl Applications Authorization App (AAA) url to get the authorized services from.
-     * @param string $appKey Current application key to identify the caller.
-     * @param string $appSecret Application secret of appKey.
+     * - aaaUrl: Applications Authorization App (AAA) url to get the authorized services from.
+     * - appKey: Current application key to identify the caller.
+     * - appSecret: Application secret of appKey.
      */
-    public function __construct($aaaUrl, $apiKey, $apiSecret)
+    public function __construct(array $config = [])
     {
-        $this->handler = new AAAHandler($aaaUrl, $apiKey, $apiSecret);
+        $this->handler = new AAAHandler($config);
     }
 
     /**
@@ -63,13 +68,18 @@ class Client
         [$serviceEntries, $jwtToken, $expiration] = $this->handler->getAuthorization();
 
         foreach ($serviceEntries as $serviceEntry) {
-            [
-                'name' => $serviceName,
-                'baseEndpoint' => $baseEndpoint,
-                'actions' => $actions,
-            ] = $serviceEntry;
-
-            $this->cachedServices[$serviceName] = new Service($serviceName, $baseEndpoint, $actions, $jwtToken, $expiration);
+            $serviceName = strtolower($serviceEntry['name']);
+            $serviceEntry['jwtToken'] = $jwtToken;
+            $serviceEntry['expiration'] = $expiration;
+            $this->cachedServices[$serviceName] = new Service($serviceEntry);
         }
+    }
+    
+    /**
+     * @return array
+     */
+    public function getProfile()
+    {
+        return json_decode($this->handler->getProfileBody()->getContents(), true);
     }
 }

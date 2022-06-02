@@ -1,25 +1,18 @@
 image: git.febacapital.com:5050/feba/images/php71:latest
 
-job:
-  cache: {}
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
+    - composer.lock
 
 stages:
  - preparation
  - code_quality
  - test
  
-testing:
-  stage: test
-  dependencies:
-    - composer
-  before_script:
-    - cd src
-  script:
-    - /usr/local/bin/composer test
 composer:
   stage: preparation
-  before_script:
-    - cd src
   script:
     - /usr/local/bin/composer install --no-plugins --no-scripts
 
@@ -28,12 +21,17 @@ code_style:
   dependencies:
     - composer
   script:
-    - /usr/local/bin/composer code-style
+    - vendor/bin/phpcs --encoding=UTF-8 --error-severity=1 --warning-severity=8 --report=full --report-width=75 --tab-width=4 -p --report=json .
 
 static_analysis:
   stage: code_quality
   dependencies:
     - composer
   script:
-    - /usr/local/bin/composer code-analysis
+    - vendor/bin/phpstan analyze . -c phpstan.neon --level=1 --memory-limit=-1 --no-progress -vvv
 
+testing:
+  stage: test
+  script:
+    - /usr/local/bin/composer install
+    - /usr/local/bin/composer test
